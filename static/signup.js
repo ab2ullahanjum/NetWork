@@ -127,6 +127,7 @@ let isFormValid = true;
         if (isValid) {
             element.classList.remove('is-invalid');
             element.classList.add('is-valid');
+            isFormValid = true; 
         } else {
             element.classList.remove('is-valid');
             element.classList.add('is-invalid');
