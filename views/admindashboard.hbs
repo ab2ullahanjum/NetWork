@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{data.sitename}} | Admin Dashboard</title>
+    <link href="static/assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/assets/css/master.css" rel="stylesheet">
+    <link href="static/assets/vendor/flagiconcss/css/flag-icon.min.css" rel="stylesheet">
+    {{>favicon data = data}}
+</head>
+
+<body>
+    <div class="wrapper">
+        {{>sidebarnav data=data}}
+        <!-- end of navbar navigation -->
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 page-header">
+                        <div class="page-pretitle">Overview</div>
+                        <h2 class="page-title">Dashboard</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icon-big text-center">
+                                            <i class="teal fas fa-user-friends"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="detail">
+                                            <p class="detail-subtitle">Total Users</p>
+                                            <span class="number">{{user.length}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="fas fa-calendar"></i> All Time
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icon-big text-center">
+                                            <i class="maroon fas fa-user-check"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="detail">
+                                            <p class="detail-subtitle">Active Members</p>
+                                            <span class="number">{{countActiveUsers user}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="fas fa-stopwatch"></i>All Time
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icon-big text-center">
+                                  <i class="blue fas fa-user-times"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="detail">
+                                            <p class="detail-subtitle">Inactive Members</p>
+                                            <span class="number">{{countinActiveUsers user}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="fas fa-envelope-open-text"></i> At this Time
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icon-big text-center">
+                                 <i class="orange fas fa-calendar-times"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="detail">
+                                            <p class="detail-subtitle">Expires Users</p>
+                                            <span class="number">{{countexpiredUsers user}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="fas fa-envelope-open-text"></i>At this Time
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icon-big text-center">
+                                <i class=" fas fa-handshake"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="detail">
+                                            <p class="detail-subtitle">Connection Requests</p>
+                                            <span class="number">{{admindata.conreq}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="fas fa-envelope-open-text"></i> At this Time
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icon-big text-center">
+                                            <i class="olive fas fa-dollar-sign"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="detail">
+                                            <p class="detail-subtitle">Revenue</p>
+                                            <span class="number">Rs{{admin.revenue}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="fas fa-calendar"></i> For this Month
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icon-big text-center">
+                                           <i class="slate-gray fas fa-piggy-bank"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="detail">
+                                            <p class="detail-subtitle">Total Deposit</p>
+                                            <span class="number">Rs{{admindata.totaldep}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="fas fa-calendar"></i> All Time
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icon-big text-center">
+                                         <i class="medium-slate-blue fas fa-exclamation-triangle"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="detail">
+                                            <p class="detail-subtitle">Pending Deposit</p>
+                                            <span class="number">Rs{{admindata.depreq}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="fas fa-calendar"></i>At this Time
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icon-big text-center">
+                                            <i class="olive fas fa-clock"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="detail">
+                                            <p class="detail-subtitle">Deposit Requests</p>
+                                            <span class="number">{{admindata.pendingdepreq}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="fas fa-calendar"></i>At this Time
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icon-big text-center">
+                                            <i class="medium-purple fas fa-check"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="detail">
+                                            <p class="detail-subtitle">Accepted Requests</p>
+                                            <span class="number">{{admindata.accepteddepreq}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="fas fa-calendar"></i> All Time
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icon-big text-center">
+                                           <i class="medium-violet-red fas fa-box"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="detail">
+                                            <p class="detail-subtitle">Availabe Packages</p>
+                                            <span class="number">{{pkgs.length}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="fas fa-calendar"></i> For this Month
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icon-big text-center">
+                                            <i class="teal fas fa-bug"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="detail">
+                                            <p class="detail-subtitle">Reported Problems</p>
+                                            <span class="number">{{admindata.problems}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="fas fa-calendar"></i> For this Month
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                      </div>
+            </div>
+        </div>
+         <footer class="container-fluid text-left bg-white text-dark py-4">
+    <div class="row">
+      <div class="col-md-6">
+        <!-- Left side content -->
+        All Rights Reserved © 2023 {{data.sitename}}
+      </div>
+      <div class="col-md-6 watermark text-right">
+        <a href="https://youtube.com/@cypher-tech">CypherTech</a>
+      </div>
+    </div>
+  </footer>
+    </div>
+    </div>
+    <script src="static/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/assets/vendor/chartsjs/Chart.min.js"></script>
+    <script src="static/assets/js/dashboard-charts.js"></script>
+    <script src="static/assets/js/script.js"></script>
+    <script src="static/signout.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sign up | Bootstrap Simple Admin Template</title>
+
+    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/assets/css/auth.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/assets/css/master.css" rel="stylesheet">
+    <style>
+        /* Add your custom styles here if needed */
+        .profile-image {
+            max-width: 150px;
+            margin-top: 10px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input {
+            font-size: 100px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            opacity: 0;
+        }
+
+        .file-input-wrapper .btn {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="auth-content">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <h1>{{f.sitename}}</h1>
+                    </div>
+                    <h6 class="mb-4 text-muted">Create a new account</h6>
+                    <div id="registrationForm" onsubmit="return validateForm()" enctype="multipart/form-data">
+                        <div class="mb-3 text-start">
+                            <label for="name" class="form-label">Name :</label>
+                            <input type="text" onkeyup="validateName()" class="form-control" id="name" name="name"
+                                placeholder="Enter Name" required>
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label for="email" class="form-label">Email address :</label>
+                            <input onkeyup="validateEmail()" type="email" class="form-control" id="email" name="email"
+                                placeholder="Enter Email" required>
+                                    <div class="invalid-feedback">Email Already Exists!</div>
+                        </div>
+                    
+                        <div class="mb-3 text-start">
+                            <label for="password" class="form-label">Password :</label>
+                            <div class="input-group">
+                                <input onkeyup="validatePassword()" type="password" class="form-control" id="password"
+                                    name="password" placeholder="Password" required>
+                                <span style="cursor: pointer;" class="input-group-text"  id="togglePassword">  
+                                        <i class="fas fa-eye" id="eye-icon"></i>
+                                </span>
+                            </div>
+                            <div class="invalid-feedback">Password must be at least 8 characters long!</div>
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label for="confirmPassword" class="form-label">Confirm Password :</label>
+                            <input onkeyup="validateConfirmPassword()" type="password" class="form-control" id="confirmpassword"
+                                name="confirmPassword" placeholder="Confirm Password" required>
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label for="profilePicture" class="form-label">Profile Picture :</label>
+                            <div class="input-group">
+                                <label class="input-group-btn">
+                                    <span class="btn btn-outline-primary">
+                                        Choose a file <input type="file" id="profilePicture" name="file"
+                                            accept="image/*" style="display: none;" onchange="displayImage(this)">
+                                    </span>
+                                </label>
+                                <input type="text" class="form-control" id="imageFileName" readonly>
+                            </div>
+                            <img src="" alt="Profile Picture" class="profile-image img-fluid" id="previewImage"
+                                style="display: none;">
+                        </div>
+
+                        <div class="mb-3 text-start">
+                            <div class="form-check">
+                                <input onchange="validateForm()" id="check1" class="form-check-input" name="confirm"
+                                    type="checkbox" value="">
+                                <label class="form-check-label" for="check1">
+                                    I agree to the <a href="#" tabindex="-1">terms and policy</a>.
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="submitform()" type="button"
+                            class="btn btn-primary shadow-2 mb-4">Register</button>
+                    </div>
+                    <p class="mb-0 text-muted">Already have an account? <a href="/login">Log in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="static/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="static/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        // Function to display the selected profile picture
+        function displayImage(input) {
+            var fileInput = input.files[0];
+
+            if (fileInput) {
+                var fileName = fileInput.name;
+                document.getElementById('imageFileName').value = fileName;
+
+                // Rest of your code to display the image preview (if needed)
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('previewImage').src = e.target.result;
+                    document.getElementById('previewImage').style.display = 'block';
+                };
+                reader.readAsDataURL(fileInput);
+            }
+        }
+
+
+        // You can add JavaScript code for form validation and submission here
+    </script>
+    <script src="static/signup.js"></script>
+</body>
+
+</html>

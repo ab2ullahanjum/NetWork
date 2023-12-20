@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{data.sitename}} | Profile {{user.name}}</title>
+    <title>{{data.sitename}} | Profile {{user.name}}</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Custom Stylesheets -->
+
+    <link rel="stylesheet" href="http://localhost/static/profile/style.css">
+    {{#if is_Admin}}
+
+
+    {{else}}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Add Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <!-- Add jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Add Bootstrap JS and Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include SweetAlert library -->
+
+
+    {{/if}}
+    <link href="{{host}}/static/assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="{{host}}/static/assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="{{host}}/static/assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="{{host}}/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{host}}/static/assets/css/master.css" rel="stylesheet">
+    <link href="{{host}}/static/assets/vendor/flagiconcss/css/flag-icon.min.css" rel="stylesheet">
+    <!-- Favicon -->
+    {{>favicon data = data}}
+</head>
+
+<body>
+
+    {{#if is_Admin}}
+    <div class="wrapper">
+        {{> sidebarnav data=data}}
+        <div class="content">
+            {{else}}
+            <div class="wrapper">
+                {{> usersidebar user=user}}
+                <div class="content">
+                    {{/if}}
+
+                    <div class="container light-style flex-grow-1 container-p-y">
+                        <h4 class="font-weight-bold py-3 mb-4">
+                            Account settings
+                        </h4>
+                        <div class="card overflow-hidden">
+                            <div class="row no-gutters row-bordered row-border-light">
+                                <div class="col-md-3 pt-0">
+                                    <div class="list-group list-group-flush account-settings-links">
+                                        <a class="list-group-item list-group-item-action active" data-toggle="list"
+                                            href="#account-general">General</a>
+                                        <a class="list-group-item list-group-item-action" data-toggle="list"
+                                            href="#account-change-password">Change password</a>
+                                        <a class="list-group-item list-group-item-action" data-toggle="list"
+                                            href="#account-info">Info</a>
+                                        {{#if is_Admin}}
+                                        <a class="list-group-item list-group-item-action" data-toggle="list"
+                                            href="#status" id="statusanchor">Status</a>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade active show" id="account-general">
+                                            <div class="card-body media align-items-center">
+                                                <img src="{{host}}/{{user.profile}}" alt class="d-block ui-w-80">
+                                                <div class="media-body ml-4">
+                                                    <label class="btn btn-outline-primary">
+                                                        Upload new photo
+                                                        <input type="file" class="account-settings-fileinput" id="pic"
+                                                            onchange="updateLabelText(this)">
+                                                    </label>
+                                                    <span id="selectedFileName"></span>
+                                                    &nbsp;
+                                                    <button type="button"
+                                                        class="btn btn-default md-btn-flat">Reset</button>
+                                                    <div class="text-light small mt-1">Allowed JPG, PNG. Max size of 1MB
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="border-light m-0">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="name">Name</label>
+                                                    <input type="text" class="form-control" id="name"
+                                                        value="{{user.name}}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label" for="email">E-mail</label>
+                                                    <input type="text" class="form-control mb-1 read-only-input"
+                                                        id="email" value="{{user.email}}" readonly
+                                                        onkeyup="emailenter()">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label" for="package">Package Activated</label>
+                                                    <input type="text" class="form-control" id="package"
+                                                        value="{{user.pkg}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="account-change-password">
+                                            <div class="card-body pb-2">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="currentPassword">Current
+                                                        password</label>
+                                                    <div class="input-group">
+                                                        <input type="password" class="form-control"
+                                                            id="currentPassword">
+                                                        <span style="cursor: pointer;"
+                                                            class="input-group-text toggle-password"
+                                                            data-target="currentPassword">
+                                                            <i class="fas fa-eye" id="eye-icon"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label" for="newPassword">New password</label>
+                                                    <div class="input-group">
+                                                        <input type="password" class="form-control" id="newPassword">
+                                                        <span style="cursor: pointer;"
+                                                            class="input-group-text toggle-password"
+                                                            data-target="newPassword">
+                                                            <i class="fas fa-eye" id="eye-icon"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label" for="repeatNewPassword">Repeat new
+                                                        password</label>
+                                                    <div class="input-group">
+                                                        <input type="password" class="form-control"
+                                                            id="repeatNewPassword">
+                                                        <span style="cursor: pointer;"
+                                                            class="input-group-text toggle-password"
+                                                            data-target="repeatNewPassword">
+                                                            <i class="fas fa-eye" id="eye-icon"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="account-info">
+                                            <div class="card-body pb-2">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="bio">Bio</label>
+                                                    <textarea class="form-control" rows="5"
+                                                        id="bio">{{user.bio}}</textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label" for="birthdate">Birthday</label>
+                                                    <input type="date" class="form-control" id="birthdate"
+                                                        value="{{user.birthdate}}">
+                                                </div>
+                                            </div>
+                                            <hr class="border-light m-0">
+                                            <div class="card-body pb-2">
+                                                <h6 class="mb-4">Contacts</h6>
+                                                <div class="form-group">
+                                                    <label class="form-label" for="phone">Phone</label>
+                                                    <input type="text" class="form-control" id="phone"
+                                                        value="{{user.phone}}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label" for="whatsapp">Whatsapp</label>
+                                                    <input type="text" class="form-control" id="whatsapp"
+                                                        value="{{user.whatsapp}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{#if is_Admin}}
+                                        <div class="tab-pane fade" id="status">
+                                            <div class="card-body pb-2">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="lastmonthusage">Last
+                                                        Month</label>
+                                                    <div class="input-group">
+                                                        <input type="text" value="{{user.lastmonthusage}}"
+                                                            class="form-control" id="lastmonthusage">
+                                                        <span class="input-group-text">GB</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="form-label" for="totalusage">Total Usage</label>
+                                                    <div class="input-group">
+                                                        <input type="text" value="{{user.totalusage}}"
+                                                            class="form-control" id="totalusage">
+                                                        <span class="input-group-text">GB</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="form-label" for="wallet">Wallet</label>
+                                                    <div class="input-group">
+                                                        <input type="text" value="{{user.wallet}}" class="form-control"
+                                                            id="wallet">
+                                                        <span class="input-group-text">Rs</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="form-label" for="deposit">Deposit</label>
+                                                    <div class="input-group">
+                                                        <input type="text" value="{{user.deposit}}" class="form-control"
+                                                            id="deposit">
+                                                        <span class="input-group-text">Rs</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="form-label" for="pending">Pending Deposit</label>
+                                                    <div class="input-group">
+                                                        <input type="text" value="{{user.pending}}" class="form-control"
+                                                            id="pending">
+                                                        <span class="input-group-text">Rs</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="form-label" for="totalbill">Total Bill</label>
+                                                    <div class="input-group">
+                                                        <input type="text" value="{{user.totalbill}}"
+                                                            class="form-control" id="totalbill">
+                                                        <span class="input-group-text">Rs</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="form-label" for="paid">Paid Bill</label>
+                                                    <div class="input-group">
+                                                        <input type="text" value="{{user.paid}}" class="form-control"
+                                                            id="paid">
+                                                        <span class="input-group-text">Rs</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{/if}}
+                                    </div>
+                                    <div class="text-right mt-3" id="saveChangesButton">
+                                        <button type="button" class="btn btn-primary" onclick="saveChanges()">Save
+                                            changes</button>&nbsp;
+                                        <button type="button" class="btn btn-default">Cancel</button>
+                                    </div>
+                                    {{#if is_Admin}}
+                                    <div class="text-right mt-3" id="updateStatusButton">
+                                        <button type="button" class="btn btn-success"
+                                            onclick="updateUserStatus('{{user.email}}')">Update Status</button>
+                                        <button type="button" class="btn btn-default">Cancel</button>
+                                    </div>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{#if is_Admin}}
+                </div>
+                {{/if}}
+            </div>
+
+
+            {{#if is_Admin}}
+            <script src="{{host}}/static/assets/vendor/jquery/jquery.min.js"></script>
+            <script src="{{host}}/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="{{host}}/static/assets/js/script.js"></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script src="{{host}}/static/profile.js"></script>
+            <script src="{{host}}/static/signout.js"></script>
+            {{else}}
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+            <!-- ====== ionicons ======= -->
+            <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+            <script src="static/signout.js"></script>
+            <script src="static/user/js/jquery.min.js"></script>
+            <script src="static/user/js/popper.js"></script>
+            <script src="static/user/js/bootstrap.min.js"></script>
+            <script src="static/user/js/main.js"></script>
+            <script src="/static/profile.js"></script>
+            <script src="static/signout.js"></script>
+            <script src="{{host}}/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            {{/if}}
+
+            <!-- Include SweetAlert2 from CDN with theme and icons -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+</body>
+
+
+</body>
+
+</html>

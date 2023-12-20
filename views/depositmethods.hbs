@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Custom Stylesheets -->
+    {{#if data.is_Admin}}
+    {{else}}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Add Bootstrap JS and Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include SweetAlert library -->
+    {{/if}}
+    <link href="static/assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/assets/css/master.css" rel="stylesheet">
+    <link href="static/assets/vendor/flagiconcss/css/flag-icon.min.css" rel="stylesheet">
+    <title>Deposit Methods</title>
+    {{>favicon data = data.fdata}}
+    <style>
+        .deposit-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .deposit-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .deposit-card img {
+            max-height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            margin-bottom: 8px;
+        }
+
+        .btn {
+            margin-top: 10px;
+        }
+
+        .custom-badge {
+            position: absolute;
+            top: 10px;
+            right: -10px;
+            background-color: #4CAF50;
+            /* Green background color */
+            color: #fff;
+            /* White text color */
+            padding: 8px 15px;
+            /* Padding for better appearance */
+            border-radius: 20px 0 0 20px;
+            /* Rounded corners on the left side */
+            font-weight: bold;
+            /* Bold text */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Custom font style */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Adds a subtle shadow */
+            z-index: 1;
+            /* Ensure the badge appears above other elements */
+            cursor: pointer;
+            /* Change cursor on hover */
+            transition: background-color 0.3s ease;
+            /* Smooth transitions on hover */
+        }
+    </style>
+</head>
+
+<body>
+
+
+    {{#if data.is_Admin}}
+    <div class="wrapper">
+        {{>sidebarnav data=data.fdata}}
+        <div class="content">
+            {{else}}
+            <div class="wrapper">
+                {{>usersidebar user = data.user}}
+                <div class="content">
+                    {{/if}}
+
+                    <div class="container mt-4">
+                        {{#if data.is_Admin}}
+                        <h2>Deposit Methods Management</h2>
+                        {{else}}
+                        <h2>Available Deposit Methods</h2>
+                        {{/if}}
+                        <div class="row">
+                            {{#each data.methods}}
+                            <!-- Deposit Method Card -->
+                            <div class="col-md-4 mb-4">
+                                <div class="card deposit-card">
+                                    <img src="{{this.pic}}" class="card-img-top" alt="{{this.name}} Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{this.type}}</h5>
+                                        <p class="card-text"><strong>Method Name:</strong> {{this.name}}</p>
+                                        <p class="card-text"><strong>Account Number:</strong> {{this.account}}</p>
+                                        <p class="card-text"><strong>Account Holder:</strong> {{this.accountholder}}
+                                        </p>
+
+                                        {{#if this.recommended}}
+                                        <span class="custom-badge">Recommended</span>
+                                        {{/if}}
+
+                                        {{#if ../data.is_Admin}}
+                                        <button class="btn btn-primary" data-toggle="modal"
+                                            data-target="#editDepositMethodModal" data-method-name="
+                                            {{this.name}}" data-account-number="{{this.account}}"
+                                            data-account-holder="{{this.accountholder}}"
+                                            data-recommended="{{this.recommended}}">Edit</button>
+                                        <button class="btn btn-danger"
+                                            onclick="deleteDepositMethod('{{this.name}}')">Delete</button>
+                                        {{else}}
+                                        <button class="btn btn-primary show-details-btn" data-toggle="modal"
+                                            data-target="#depositRequestModal" data-method-name="{{this.name}}"
+                                            data-account-number="{{this.account}}"
+                                            data-account-holder="{{this.accountholder}}"  data-user="{{../data.user}}">Add Deposit Request</button>
+
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                            {{/each}}
+
+                        </div>
+                    </div>
+
+                    {{#if data.is_Admin}}
+                    <div class="modal fade" id="editDepositMethodModal" tabindex="-1" role="dialog"
+                        aria-labelledby="editDepositMethodModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editDepositMethodModalLabel">Edit Deposit Method</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="editMethodName">Method Name</label>
+                                            <input type="text" class="form-control" id="editMethodName" value="">
+                                        </div>
+                                        <input style="display: none;" id="findmethod" type="text">
+                                        <div class="form-group">
+                                            <label for="editMethodAccountNumber">Account Number</label>
+                                            <input type="text" class="form-control" id="editMethodAccountNumber"
+                                                value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editMethodAccountHolder">Account Holder</label>
+                                            <input type="text" class="form-control" id="editMethodAccountHolder"
+                                                value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="methodImage">Upload Image</label>
+                                            <input type="file" class="form-control-file" id="editMethodImage"
+                                                accept="image/*">
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input"
+                                                id="editrecommendedCheckbox">
+                                            <label class="form-check-label"
+                                                for="recommendedCheckbox">Recommended</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{else}}
+                    <div class="modal fade" id="depositRequestModal" tabindex="-1" role="dialog"
+                        aria-labelledby="depositRequestModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header bg-primary text-white">
+                                    <h5 class="modal-title" id="depositRequestModalLabel">Deposit Request Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- Modal Body -->
+                                <div class="modal-body">
+                                    <!-- Deposit method details -->
+                                    <form id="depositRequestForm">
+                                        <div class="mb-3">
+                                            <label for="methodName" class="form-label">Method Name:</label>
+                                            <span id="methodName"></span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="accountNumber" class="form-label">Account Number:</label>
+                                            <span id="accountNumber"></span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="accountHolder" class="form-label">Account Holder:</label>
+                                            <span id="accountHolder"></span>
+                                        </div>
+                                        <!-- Deposit Amount -->
+                                        <div class="mb-3">
+                                            <label for="depositAmount" class="form-label">Deposit Amount:</label>
+                                            <input type="text" class="form-control" id="depositAmount"
+                                                name="depositAmount" placeholder="Enter deposit amount">
+                                        </div>
+
+                                        <!-- Image Upload -->
+                                        <div class="mb-3">
+                                            <label for="imageUpload" class="form-label">Upload Image:</label>
+                                            <input type="file" class="form-control" id="imageUpload" name="imageUpload"
+                                                accept="image/*">
+                                        </div>
+
+                                        <!-- TRX ID submission -->
+                                        <div class="mb-3">
+                                            <label for="trxId" class="form-label">Enter TRX ID:</label>
+                                            <input type="text" class="form-control" id="trxId" name="trxId">
+                                        </div>
+
+                                        <!-- Additional details if needed -->
+                                    </form>
+                                </div>
+
+                                <!-- Modal Footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" form="depositRequestForm">Submit
+                                        Deposit Request</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {{/if}}
+
+
+
+
+
+
+
+
+
+                    {{#if data.is_Admin}}
+                    <div class="modal fade" id="addDepositMethodModal" tabindex="-1" role="dialog"
+                        aria-labelledby="addDepositMethodModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addDepositMethodModalLabel">Add Deposit Method</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="addDepositMethodForm">
+                                        <div class="form-group">
+                                            <label for="methodName">Method Name</label>
+                                            <input type="text" class="form-control" id="methodName"
+                                                placeholder="Enter method name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="methodAccountNumber">Account Number</label>
+                                            <input type="text" class="form-control" id="methodAccountNumber"
+                                                placeholder="Enter account number">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="methodAccountHolder">Account Holder</label>
+                                            <input type="text" class="form-control" id="methodAccountHolder"
+                                                placeholder="Enter account holder name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="methodImage">Upload Image</label>
+                                            <input type="file" class="form-control-file" id="methodImage"
+                                                accept="image/*">
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="recommendedCheckbox">
+                                            <label class="form-check-label"
+                                                for="recommendedCheckbox">Recommended</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Add Deposit Method</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Deposit Method Button -->
+                    <button type="button" class="btn btn-success" data-toggle="modal"
+                        data-target="#addDepositMethodModal">Add Deposit
+                        Method</button>
+
+
+                    {{/if}}
+                </div>
+
+                {{#if data.is_Admin}}
+            </div>
+        </div>
+        {{/if}}
+    </div> <!-- Closing the content div for both cases -->
+    </div> <!-- Closing the wrapper div for both cases -->
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="static/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/assets/js/script.js"></script>
+    {{#if data.is_Admin}}
+    <script src="static/admindeposit.js"></script>
+    {{else}}
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="static/deposit.js"></script>
+    {{/if}}
+    <script src="static/signout.js"></script>
+    <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</body>
+
+</html>

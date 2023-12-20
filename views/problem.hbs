@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Custom Stylesheets -->
+
+    <link rel="stylesheet" href="/static/profile/style.css">
+    {{#if data.is_Admin}}
+
+
+    {{else}}
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Add Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <!-- Add jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Add Bootstrap JS and Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include SweetAlert library -->
+
+
+    {{/if}}
+    <link href="static/assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/assets/css/master.css" rel="stylesheet">
+    <link href="static/assets/vendor/flagiconcss/css/flag-icon.min.css" rel="stylesheet">
+    <title>Package Management</title>
+    {{>favicon data = data.fdata}}
+
+</head>
+
+<body>
+
+
+    {{#if data.is_Admin}}
+    <div class="wrapper">
+        {{>sidebarnav data=data.fdata}}
+        <div class="content">
+            {{else}}
+            <div class="wrapper">
+                {{>usersidebar user = data.user}}
+                <div class="content">
+                    {{/if}}
+
+                    {{#if data.is_Admin}}
+                    <div class="container mt-5">
+                        <!-- Admin table will be rendered here -->
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>User Name</th>
+                                    <th>Email</th>
+                                    <th>Profile Pic</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each data.problems}}
+                                <tr>
+                                    <td>{{this.title}}</td>
+                                    <td>{{this.description}}</td>
+                                    <td>{{this.name}}</td>
+                                    <td>{{this.email}}</td>
+                                    <td><img src="{{this.pic}}" alt="Profile Pic"
+                                            style="max-width: 50px; max-height: 50px;"></td>
+                                    <td>
+                                        <button class="btn btn-danger"
+                                            onclick="confirmDelete('{{this.email}}', '{{this.title}}')">Delete</button>
+                                    </td>
+
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    {{else}}
+
+
+                    <h1>Report a Problem!</h1>
+                    <div id="userPanel">
+                        <div class="form-group">
+                            <label for="problemTitle">Problem Title</label>
+                            <input type="text" class="form-control" id="problemTitle" placeholder="Enter problem title">
+                        </div>
+                        <div class="form-group">
+                            <label for="problemDescription">Problem Description</label>
+                            <textarea class="form-control" id="problemDescription"
+                                placeholder="Describe the problem..."></textarea>
+                        </div>
+                        <button class="btn btn-primary" id="submitRequest">Submit Request</button>
+
+
+                    </div>
+
+                    {{/if}}
+
+
+                </div> <!-- Closing the content div for both cases -->
+            </div> <!-- Closing the wrapper div for both cases -->
+
+
+            {{#if is_Admin}}
+            <script src="static/assets/vendor/jquery/jquery.min.js"></script>
+            <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="static/assets/js/script.js"></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            {{else}}
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+            <!-- ====== ionicons ======= -->
+            <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+            <script src="static/user/js/jquery.min.js"></script>
+            <script src="static/user/js/popper.js"></script>
+            <script src="static/user/js/bootstrap.min.js"></script>
+            <script src="static/user/js/main.js"></script>
+            <script src="static/signout.js"></script>
+            <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+            <!-- Include SweetAlert -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            {{/if}}
+
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+            <script src="static/signout.js"></script>
+            <script src="static/problem.js"></script>
+</body>
+
+</html>

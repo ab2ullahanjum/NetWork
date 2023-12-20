@@ -1,0 +1,91 @@
+<!doctype html>
+<!-- 
+* Bootstrap Simple Admin Template
+* Version: 2.1
+* Author: Alexis Luna
+* Website: https://github.com/alexis-luna/bootstrap-simple-admin-template
+-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tables | Bootstrap Simple Admin Template</title>
+    <link href="static/assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/datatables/datatables.min.css" rel="stylesheet">
+    <link href="static/assets/css/master.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- sidebar navigation component -->
+        {{>sidebarnav}}
+        <!-- end of navbar navigation -->
+        <div class="content">
+            <div class="container">
+                <div class="page-title">
+                    <h3>Requests</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="card">
+                            <div class="card-header">Connection Requests</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Phone</th>
+                                                <th>E-mail</th>
+                                                <th>Package</th>
+                                                <th>Message</th>
+                                                <th>Approve</th>
+                                                <th>Disapprove</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each requests}}
+                                            <tr>
+                                                <td>{{this.name}}</td>
+                                                <td>{{this.phone}}</td>
+                                                <td>{{this.email}}</td>
+                                                <td>{{this.pkg}}</td>
+                                                <td>{{this.msg}}</td>
+                                                <td>
+                                                    <!-- Bootstrap buttons for Approve and Disapprove -->
+                                                    <button type="button" class="btn btn-success"
+                                                        onclick="approveRequest('{{this.name}}','{{this.email}}')">Approve</button>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger"
+                                                        onclick="disapproveRequest('{{this.email}}')">Disapprove</button>
+                                                </td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="static/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/assets/vendor/datatables/datatables.min.js"></script>
+    <script src="static/assets/js/initiate-datatables.js"></script>
+    <script src="static/assets/js/script.js"></script>
+    <script src="static/request.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+</body>
+
+</html>

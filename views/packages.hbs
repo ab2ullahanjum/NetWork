@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Custom Stylesheets -->
+
+    <link rel="stylesheet" href="/static/profile/style.css">
+    {{#if is_Admin}}
+
+
+    {{else}}
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Add Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <!-- Add jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Add Bootstrap JS and Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include SweetAlert library -->
+
+
+    {{/if}}
+    <link href="static/assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/assets/css/master.css" rel="stylesheet">
+    <link href="static/assets/vendor/flagiconcss/css/flag-icon.min.css" rel="stylesheet">
+    <title>Package Management</title>
+    {{>favicon data = data}}
+    <style>
+        .custom-badge {
+            position: absolute;
+            top: 10px;
+            right: -10px;
+            background-color: #4CAF50;
+            /* Green background color */
+            color: #fff;
+            /* White text color */
+            padding: 8px 15px;
+            /* Padding for better appearance */
+            border-radius: 20px 0 0 20px;
+            /* Rounded corners on the left side */
+            font-weight: bold;
+            /* Bold text */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Custom font style */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Adds a subtle shadow */
+            z-index: 1;
+            /* Ensure the badge appears above other elements */
+            cursor: pointer;
+            /* Change cursor on hover */
+            transition: background-color 0.3s ease;
+            /* Smooth transitions on hover */
+        }
+    </style>
+</head>
+
+<body>
+
+
+    {{#if is_Admin}}
+    <div class="wrapper">
+        {{>sidebarnav data=data}}
+        <div class="content">
+            {{else}}
+            <div class="wrapper">
+                {{>usersidebar user = user}}
+                <div class="content">
+                    {{/if}}
+
+                    <div class="container mt-4">
+                        {{#if is_Admin}}
+                        <h2>Package Management</h2>
+                        {{else}}
+                        <h2>Available Packages</h2>
+                        {{/if}}
+                        <div class="row">
+                            {{#each packages}}
+                            <!-- Package 1 -->
+                            <div class="col-md-4 mb-4">
+                                <div class="card package-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{this.name}}</h5>
+                                        <p class="card-text"><strong>Speed:</strong> {{this.speed}}</p>
+                                        <p class="card-text"><strong>Price:</strong> {{this.price}}</p>
+                                        {{#if ../is_Admin}}
+                                         <p class="card-text"><strong>Real Price:</strong> {{this.realprice}}</p>
+                                        {{/if}}
+                                        <p class="card-text"><strong>Description:</strong> {{this.description}}</p>
+                                        {{#if this.recommended}}
+                                        <span class="custom-badge">Recommended</span>
+                                        {{/if}}
+
+                                        {{#if ../is_Admin}}
+                                        <button class="btn btn-primary" data-toggle="modal"
+                                            data-target="#editPackageModal" data-package-name="{{this.name}}"
+                                            data-package-speed="{{this.speed}}" data-package-price="{{this.price}}" data-real-price="{{this.realprice}}"
+                                            data-package-description="{{this.description}}"
+                                            data-recommended="{{this.recommended}}">Edit</button>
+                                        <button class="btn btn-danger"
+                                            onclick="deletePackage('{{this.name}}')">Delete</button>
+                                        {{else}}
+                                        {{#isEqual ../user.pkg this.name}}
+                                        <button class="btn btn-success">Activated</button>
+
+                                        {{else}}
+                                        <button class="btn btn-primary" data-toggle="modal"
+                                            data-target="#activatePackageModal" data-package-name="{{this.name}}"
+                                            data-package-speed="{{this.speed}}" data-package-price="{{this.price}}"
+                                            data-package-description="{{this.description}}"
+                                            data-recommended="{{this.recommended}}">Activate</button>
+                                        {{/isEqual}}
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+
+                    {{#if is_Admin}}
+                    <div class="modal fade" id="editPackageModal" tabindex="-1" role="dialog"
+                        aria-labelledby="editPackageModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editPackageModalLabel">Edit Package</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <input style="display: none;" id="findmethod" type="text">
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="editpackageName">Package Name</label>
+                                            <input type="text" class="form-control" id="editpackageName"
+                                                placeholder="Enter package name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editpackageSpeed">Package Speed</label>
+                                            <input type="text" class="form-control" id="editpackageSpeed"
+                                                placeholder="Enter package speed">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editpackagePrice">Package Price</label>
+                                            <input type="text" class="form-control" id="editpackagePrice"
+                                                placeholder="Enter package price">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editpackagerealPrice">Real Price</label>
+                                            <input type="text" class="form-control" id="editpackagerealPrice"
+                                                placeholder="Enter package real price">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editpackageDescription">Package Description</label>
+                                            <textarea class="form-control" id="editpackageDescription" rows="3"
+                                                placeholder="Enter package description"></textarea>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="editrecommendedCheckbox"
+                                                value="{{this.recommended}}">
+                                            <label class="form-check-label"
+                                                for="recommendedCheckbox">Recommended</label>
+                                        </div>
+
+
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{else}}
+                    <div class="modal fade" id="activatePackageModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Package Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="packageName">Name:</label>
+                                        <input type="text" class="form-control" id="packageName" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="packageSpeed">Speed:</label>
+                                        <input type="text" class="form-control" id="packageSpeed" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="packagePrice">Price:</label>
+                                        <input type="text" class="form-control" id="packagePrice" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="packageDescription">Description:</label>
+                                        <input type="text" class="form-control" id="packageDescription" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recommended">Recommended:</label>
+                                        <input type="text" class="form-control" id="recommended" readonly>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary" id="activateButton">Activate</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{/if}}
+
+
+
+
+
+
+
+                    {{#if is_Admin}}
+                    <!-- Add Package Modal -->
+                    <div class="modal fade" id="addPackageModal" tabindex="-1" role="dialog"
+                        aria-labelledby="addPackageModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addPackageModalLabel">Add Package</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Add your package form fields here -->
+                                    <div>
+                                        <div class="form-group">
+                                            <label for="packageName">Package Name</label>
+                                            <input type="text" class="form-control" id="packageName"
+                                                placeholder="Enter package name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="packageSpeed">Package Speed</label>
+                                            <input type="text" class="form-control" id="packageSpeed"
+                                                placeholder="Enter package speed">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="packagePrice">Package Price</label>
+                                            <input type="text" class="form-control" id="packagePrice"
+                                                placeholder="Enter package price">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="packagePrice">Real Package Price</label>
+                                            <input type="text" class="form-control" id="realpackagePrice"
+                                                placeholder="Enter Real package price">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="packageDescription">Package Description</label>
+                                            <textarea class="form-control" id="packageDescription" rows="3"
+                                                placeholder="Enter package description"></textarea>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="recommendedCheckbox">
+                                            <label class="form-check-label"
+                                                for="recommendedCheckbox">Recommended</label>
+                                        </div>
+                                        <button class="btn btn-primary" onclick="addPackage()">Add Package</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Package Button -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addPackageModal">Add
+                        Package</button>
+                    {{/if}}
+                </div>
+
+                {{#if is_Admin}}
+            </div>
+        </div>
+        {{/if}}
+    </div> <!-- Closing the content div for both cases -->
+    </div> <!-- Closing the wrapper div for both cases -->
+
+
+    {{#if is_Admin}}
+    <script src="static/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/assets/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="static/adminpkg.js"></script>
+    {{else}}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="static/signout.js"></script>
+    <script src="static/user/js/jquery.min.js"></script>
+    <script src="static/user/js/popper.js"></script>
+    <script src="static/user/js/bootstrap.min.js"></script>
+    <script src="static/user/js/main.js"></script>
+    <script src="static/signout.js"></script>
+    <script src="static/packages.js"></script>
+    <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Include SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{/if}}
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="static/signout.js"></script>
+
+</body>
+
+</html>

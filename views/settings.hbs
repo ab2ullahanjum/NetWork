@@ -1,0 +1,180 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{data.sitename}} | Settings</title>
+    <link href="static/assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/assets/css/master.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{>favicon data = data}}
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- sidebar navigation component -->
+        {{>sidebarnav}}
+        <!-- end of navbar navigation -->
+        <div class="content">
+            <div class="container">
+                <div class="page-title">
+                    <h3>Settings</h3>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="general-tab" data-bs-toggle="tab" href="#general"
+                                    role="tab" aria-controls="general" aria-selected="true">General</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="system-tab" data-bs-toggle="tab" href="#system" role="tab"
+                                    aria-controls="system" aria-selected="false">Contact Info</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="appearance-tab" data-bs-toggle="tab" href="#appearance"
+                                    role="tab" aria-controls="appearance" aria-selected="false">Social links</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade active show" id="general" role="tabpanel"
+                                aria-labelledby="general-tab">
+                                <div class="col-md-6" action="/updatesite" method="POST" enctype="multipart/form-data">
+                                    <p class="text-muted">General settings such as, site title, site description,
+                                        address and so on.</p>
+                                    <div class="mb-3">
+                                        <label for="site-title" class="form-label">Site Title</label>
+                                        <input type="text" value="{{data.sitename}}" name="site_title"
+                                            class="form-control" id="sitename">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="site-description" class="form-label">Site Description</label>
+                                        <textarea class="form-control" name="site_description"
+                                            id="sitedescription">{{data.sitedescription}}</textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="whatwedo" class="form-label">What You Do?</label>
+                                        <textarea class="form-control" name="whatwedo"
+                                            id="whatwedo">{{data.whatwedo}}</textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="whoweare" class="form-label">Who we are?</label>
+                                        <textarea class="form-control" name="whoweare"
+                                            id="whoweare">{{data.whoweare}}</textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="notice" class="form-label">Notice</label>
+                                        <textarea class="form-control" name="notice"
+                                            id="notice">{{data.notice}}</textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Site Logo</label>
+                                        <input class="form-control" value="{{data.logo}}" name="logo" type="file" id="sitelogo">
+                                        <small class="text-muted">The image must have a maximum size of 1MB</small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Favicon</label>
+                                        <input class="form-control" value="{{data.favicon}}" name="favicon" type="file" id="sitefavicon">
+                                        <small class="text-muted">The image must have a maximum size of 1MB</small>
+                                    </div>
+
+                                    <div class="mb-3 text-end">
+                                        <button class="btn btn-success" onclick="updatesite()"><i
+                                                class="fas fa-check"></i>
+                                            Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="system" role="tabpanel" aria-labelledby="system-tab">
+                                <div class="col-md-6">
+                                    <p class="text-muted">Application contact settings, phone, e-mail and other
+                                        environments.</p>
+                                    <div class="mb-3">
+                                        <div class="mb-3">
+                                            <label for="site-title" class="form-label">Address</label>
+                                            <input type="text" value="{{data.address}}" id="address"
+                                                class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="site-title" class="form-label">Phone</label>
+                                            <input type="text" value="{{data.phone}}" id="phone" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="site-title" class="form-label">E-mail</label>
+                                            <input type="text" value="{{data.email}}" id="email" class="form-control">
+                                        </div>
+
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Information</label>
+                                        <textarea class="form-control" name="" rows="3"
+                                            placeholder="Enter about your Application to add it in Footerr section"
+                                            id="info">{{data.information}}</textarea>
+                                    </div>
+                                    <div class="mb-3 text-end">
+                                        <button class="btn btn-success" onclick="updatesite()"><i
+                                                class="fas fa-check"></i>
+                                            Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div class="tab-pane fade" id="appearance" role="tabpanel" aria-labelledby="appearance-tab">
+                                <div class="col-md-6">
+                                    <p class="text-muted">Settings about appearance such as themes, icon and color
+                                        scheme.</p>
+                                    <div class="mb-3">
+                                        <label for="site-title" class="form-label">Facebook :</label>
+                                        <input type="text" value="{{data.links.facebook}}" id="facebook" class="form-control" >
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="site-title" class="form-label">Twitter :</label>
+                                        <input type="text" value="{{data.links.twitter}}" id="twitter" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="site-title" class="form-label">Linkedin :</label>
+                                        <input type="text" value="{{data.links.linkedin}}" id="linkedin" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="site-title" class="form-label">Instagram</label>
+                                        <input type="text" value="{{data.links.instagram}}" id="instagram" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="site-title" class="form-label">Youtube</label>
+                                        <input type="text" value="{{data.links.youtube}}" id="youtube" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="site-title" class="form-label">GitHub</label>
+                                        <input type="text" value="{{data.links.github}}" id="github" class="form-control">
+                                    </div>
+                                    <div class="mb-3 text-end">
+                                        <button class="btn btn-success" onclick="updatesite()"><i class="fas fa-check"></i>
+                                            Save</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="static/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/assets/js/script.js"></script>
+</body>
+
+<script src="static/settings.js">
+</script>
+
+
+</html>

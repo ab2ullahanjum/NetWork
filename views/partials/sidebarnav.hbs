@@ -1,0 +1,65 @@
+ <nav id="sidebar" class="">
+            <div class="sidebar-header">
+                <img src="{{data.logo}}" width="40px" alt="bootraper logo" class="app-logo">
+            </div>
+            <ul class="list-unstyled components text-secondary">
+                <li>
+                    <a href="/dashboard"><i class="fas fa-home"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="/packages"><i class="fas fa-file-alt"></i> Packages</a>
+                </li>
+                <li>
+                    <a href="/requests"><i class="fas fa-table"></i> Connection Requests</a>
+                </li>
+               
+                <li>
+                    <a href="#uielementsmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-money-bill-wave"></i>Deposit</a>
+                    <ul class="collapse list-unstyled" id="uielementsmenu">
+                        <li>
+                            <a href="/depositmethods"><i class="fas fa-angle-right"></i>Deposit Methods</a>
+                        </li>
+                        <li>
+                            <a href="/depositrequests"><i class="fas fa-angle-right"></i> Deposit Requests</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/users"><i class="fas fa-user-friends"></i>Users</a>
+                </li>
+                <li>
+                    <a href="/problems"><i class="fas fa-bug"></i>Reported Problems</a>
+                </li>
+                <li>
+                    <a href="/settings"><i class="fas fa-cog"></i>Settings</a>
+                </li>
+            </ul>
+        </nav>
+        <div id="body" class="">
+            <!-- navbar navigation component -->
+            <nav class="navbar navbar-expand-lg navbar-white bg-white">
+                <button type="button" id="sidebarCollapse" class="btn btn-light">
+                    <i class="fas fa-bars"></i><span></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ms-auto">
+                       
+                        <li class="nav-item dropdown">
+                            <div class="nav-dropdown">
+                                <a href="#" id="nav2" class="nav-item nav-link dropdown-toggle text-secondary" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user"></i>  <i style="font-size: .8em;" class="fas fa-caret-down"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end nav-link-menu">
+                                    <ul class="nav-list">
+                                        <li><a href="/profile" class="dropdown-item"><i class="fas fa-address-card"></i> Profile</a></li>
+                                        
+                                        <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                                        <div class="dropdown-divider"></div>
+                                        <li  onclick="signout()"><a href="" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>

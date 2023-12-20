@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {{>links f=f}}
+   <style>
+        /* Define colors for social media icons */
+        .facebook-icon { color: #1877f2; }
+        .twitter-icon { color: #1da1f2; }
+        .instagram-icon { color: #e4405f; }
+        .linkedin-icon { color: #0077b5; }
+        .github-icon { color: #181717; }
+        .youtube-icon { color: #ff0000; }
+    </style>
+    {{>favicon data = f}}
+</head>
+
+<body onload="opendash()">
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
+          <a class="navbar-brand" href="/">
+            <span>
+              {{f.sitename}}
+            </span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+              <ul class="navbar-nav  ">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+              <div class="user_option">
+                <a href="/profile">
+                  <img src="static/template/images/user.png" alt="">
+                </a>
+                <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
+                  <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
+    <section class=" slider_section position-relative">
+      <div class="container">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="row">
+                <div class="col">
+                  <div class="detail-box">
+                    <div>
+                      <h2>
+                        welcome to
+                      </h2>
+                      <h1>
+                        {{f.sitename}}
+                      </h1>
+                      <p>
+                        {{f.sitedescription}}
+                      </p>
+                      <div class="">
+                        <a href="/login">
+                          Login
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="row">
+                <div class="col">
+                  <div class="detail-box">
+                    <div>
+                      <h2>
+                        welcome to
+                      </h2>
+                      <h1>
+                        {{f.sitename}}
+                      </h1>
+                      <p>
+                        {{f.sitedescription}}
+                      </p>
+                      <div class="">
+                        <a href="/login">
+                          Login
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="row">
+                <div class="col">
+                  <div class="detail-box">
+                    <div>
+                      <h2>
+                        welcome to
+                      </h2>
+                      <h1>
+                        {{f.sitename}}
+                      </h1>
+                      <p>
+                        {{f.sitedescription}}
+                      </p>
+                      <div class="">
+                        <a href="/login">
+                          Login
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end slider section -->
+  </div>
+
+  <!-- do section -->
+
+  <section class="do_section layout_padding">
+    <div class="container">
+      <div class="heading_container">
+        <h2>
+          What we do
+        </h2>
+        <p>
+          {{f.whatwedo}}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- end do section -->
+
+  <!-- who section -->
+
+  <section class="who_section ">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="img-box">
+            <img src="static/template/images/who-img.jpg" alt="">
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                WHO WE ARE?
+              </h2>
+            </div>
+            <p>
+              {{f.whoweare}}
+            </p>
+            <div>
+              <a href="">
+                Read More
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end who section -->
+
+
+ 
+  <section class="target_section layout_padding2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-6">
+          <div class="detail-box">
+            <h2>
+              1000+
+            </h2>
+            <h5>
+              Years of Business
+            </h5>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="detail-box">
+            <h2>
+              2000+
+            </h2>
+            <h5>
+              Projects Delivered
+            </h5>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="detail-box">
+            <h2>
+              1000+
+            </h2>
+            <h5>
+              Satisfied Customers
+            </h5>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="detail-box">
+            <h2>
+              800+
+            </h2>
+            <h5>
+             Acive Customers
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end target section -->
+
+
+  <!-- contact section -->
+
+  <section class="contact_section layout_padding">
+    <div class="container">
+
+      <div class="heading_container">
+        <h2>
+          Request for a CONNECTION
+        </h2>
+      </div>
+      <div class="">
+        <div class="">
+          <div class="row">
+            <div class="col-md-9 mx-auto">
+              <div class="contact-form">
+                <form onsubmit="contact(); return false;" id='myForm'>
+                  <div>
+                    <input type="text" placeholder="Full Name " name="name" id="name">
+                  </div>
+                  <div>
+                    <input type="text" placeholder="Phone Number" name="phone" id="phone">
+                  </div>
+                  <div>
+                    <select name="pkg" class="custom-select" id="pkg">
+                      {{#each packages}}
+                      <option value="{{this.name}}">{{this.name}}({{this.price}})</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                  <div>
+                    <input type="email" placeholder="Email Address" name="email" id="email">
+                  </div>
+                  <div>
+                    <textarea type="text" placeholder="Message" class="input_message" name="msg" id="msg"></textarea>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <button type="button" onclick="contact()" class="btn_on-hover">
+                      Send
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div
+        </div>
+      </div>
+      <div class="map_img-box">
+        <img src="static/template/images/map-img.png" alt="">
+      </div>
+    </div>
+  </section>
+
+
+  <!-- end contact section -->
+  {{>footer f=f}}
+
+  <!-- footer section -->
+
+  {{>scriptlinks}}
+  </script>
+  <!-- owl carousel script 
+    -->
+  <script type="text/javascript">
+    $(".owl-carousel").owlCarousel({
+      loop: true,
+      margin: 0,
+      navText: [],
+      center: true,
+      autoplay: true,
+      autoplayHoverPause: true,
+      responsive: {
+        0: {
+          items: 1
+        },
+        1000: {
+          items: 3
+        }
+      }
+    });
+  </script>
+  <script>
+    function contact() {
+      let xhr = new XMLHttpRequest;
+      xhr.open('POST', '/contact', true);
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          if (xhr.responseText === "done") {
+            Swal.fire({
+              title: "Done!",
+              text: "Your request has been successfully submitted!",
+              icon: "success"
+            });
+          } else {
+             Swal.fire({
+              title: "Eror!",
+              text: "Something went wrong!",
+              icon: "error"
+            });
+          }
+        }
+      }
+      xhr.send(JSON.stringify({
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        pkg: document.getElementById('pkg').value,
+        msg: document.getElementById('msg').value,
+      }))
+    }
+async function opendash() {
+  try {
+    const response = await fetch('/opendash', {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      const result = await response.text(); // Use response.text() for plain text
+
+      if (result === 'done') {
+        // Redirect to the dashboard route
+        window.location.href = '/dashboard';
+      } else {
+        console.error('Unexpected response from the server:', result);
+      }
+    } else {
+      console.error('Failed to fetch:', response.statusText);
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
+}
+
+
+  </script>
+
+</body>
+
+</html>

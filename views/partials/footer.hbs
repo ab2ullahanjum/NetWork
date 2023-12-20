@@ -1,0 +1,132 @@
+<section class="info_section ">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="info_contact">
+          <h5>
+            {{f.sitename}}
+          </h5>
+          <div>
+            <div class="img-box">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <p>
+              {{f.address}}
+            </p>
+          </div>
+          <div>
+            <div class="img-box">
+              <i class="fas fa-phone"></i>
+            </div>
+            <p>
+              {{f.phone}}
+            </p>
+          </div>
+          <div>
+            <div class="img-box">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <p>
+              {{f.email}}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="info_info">
+          <h5>
+            Informations
+          </h5>
+          <p>
+            {{f.information}}
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="info_insta">
+          <h5>
+           Social Links
+          </h5>
+          <div class="insta_container">
+            <div>
+              <a href="{{f.links.youtube}}">
+                <div class="insta-box b-1">
+                  <i class="fab fa-youtube youtube-icon"></i>
+                </div>
+              </a>
+              <a href="{{f.links.facebook}}">
+                <div class="insta-box b-2">
+                  <i class="fab fa-facebook facebook-icon"></i>
+                </div>
+              </a>
+            </div>
+
+            <div>
+              <a href="{{f.links.twitter}}">
+                <div class="insta-box b-3">
+                  <i class="fab fa-twitter twitter-icon"></i>
+                </div>
+              </a>
+              <a href="{{f.links.instagram}}">
+                <div class="insta-box b-4">
+                  <i class="fab fa-instagram instagram-icon"></i>
+                </div>
+              </a>
+            </div>
+            <div>
+              <a href="{{f.links.github}}">
+                <div class="insta-box b-3">
+                  <i class="fab fa-github github-icon"></i>
+                </div>
+              </a>
+              <a href="{{f.links.linkedin}}">
+                <div class="insta-box b-4">
+            <i class="fab fa-linkedin linkedin-icon"></i>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="info_form ">
+          <h5>
+            Newsletter
+          </h5>
+          <form action="">
+            <input type="email" placeholder="Enter your email">
+            <button>
+              Subscribe
+            </button>
+          </form>
+          <div class="social_box">
+            <a href="">
+              <img src="images/fb.png" alt="">
+            </a>
+            <a href="">
+              <img src="images/twitter.png" alt="">
+            </a>
+            <a href="">
+              <img src="images/linkedin.png" alt="">
+            </a>
+            <a href="">
+              <img src="images/youtube.png" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- end info_section -->
+
+
+<!-- footer section -->
+<section class="container-fluid footer_section">
+  <p>
+    &copy; 2020 All Rights Reserved By {{f.sitename}}
+  </p>
+</section>
+<!-- footer section -->
