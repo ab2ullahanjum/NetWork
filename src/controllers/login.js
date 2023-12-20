@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
         let passwordMatch = await bcryptjs.compare(req.body.password, user.password);
   
         if (passwordMatch) {
-          let token = await jwt.sign({ _id: user._id }, process.env.SECRET_KEY);
+          let token = await jwt.sign({ _id: user._id },"helloiamadullahfrommassandavirkan");
           user.tokens = user.tokens.concat({token:token})
   
           res.cookie('jwt', token, {

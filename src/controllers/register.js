@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
       });
   
       // Generate and save the token
-      let token = await jwt.sign({ _id: result._id }, process.env.SECRET_KEY);
+      let token = await jwt.sign({ _id: result._id }, "helloiamadullahfrommassandavirkan");
       result.tokens = result.tokens.concat({token:token})
       res.cookie('jwt', token, {
         expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
